@@ -34,11 +34,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # ------------------------------
     # External libraries
-    'rest_framework',
     'corsheaders',  # Cross-Origin Resource Sharing
+    'rest_framework',
+
     # ------------------------------
     # Custom applications
-    'users.apps.UsersConfig'
+    'users.apps.UsersConfig',
+    'projects.apps.ProjectsConfig',
 ]
 
 MIDDLEWARE = [
@@ -131,3 +133,21 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
 ]
+
+# rest framework response
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'djangorestframework_camel_case.render.CamelCaseJSONRenderer',
+    ],
+
+    'DEFAULT_PARSER_CLASSES': (
+        'djangorestframework_camel_case.parser.CamelCaseFormParser',
+        'djangorestframework_camel_case.parser.CamelCaseMultiPartParser',
+        'djangorestframework_camel_case.parser.CamelCaseJSONParser',
+    ),
+}
+
+if DEBUG:
+    REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] += [
+        'djangorestframework_camel_case.render.CamelCaseBrowsableAPIRenderer',
+    ]
