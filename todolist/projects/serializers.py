@@ -13,8 +13,12 @@ class ProjectModelSerializer(HyperlinkedModelSerializer):
 
 
 class ToDoModelSerializer(HyperlinkedModelSerializer):
-    author = CustomUserModelSerializer()
+    author = CustomUserModelSerializer(read_only=True)
 
     class Meta:
         model = ToDo
         exclude = ('is_active',)
+
+    def create(self, validated_data):
+        validated_data['author'] = self.context.get('user')
+        return super().create(validated_data)
