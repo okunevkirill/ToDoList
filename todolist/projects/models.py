@@ -6,13 +6,12 @@ class Project(models.Model):
     """Model for the project"""
     name = models.CharField(max_length=128, verbose_name='НАЗВАНИЕ ПРОЕКТА')
     href = models.URLField(verbose_name='ССЫЛКА НА РЕПОЗИТОРИЙ')
-    users = models.ManyToManyField(
-        get_user_model()
-    )
+    users = models.ManyToManyField(get_user_model())
 
     class Meta:
         verbose_name = 'проект'
         verbose_name_plural = 'проекты'
+        ordering = ('pk',)
 
     def __str__(self):
         return f'{self.name}'
@@ -30,8 +29,9 @@ class ToDo(models.Model):
         related_name='todo',
         verbose_name='АВТОР'
     )
-    is_active = models.BooleanField(default=False, verbose_name='ПРИЗНАК АКТИВНОСТИ', db_index=True)
+    is_active = models.BooleanField(default=True, verbose_name='ПРИЗНАК ОТКРЫТОСТИ', db_index=True)
 
     class Meta:
         verbose_name = 'заметку'
         verbose_name_plural = 'заметки'
+        ordering = ('pk',)
