@@ -31,7 +31,7 @@ class ToDoViewSet(ModelViewSet):
             todo = self.get_object()
             todo.is_active = False
             todo.save()
-        except Exception:  # ToDo Заменить на middleware или сузить исключение
+        except Exception:  # ToDo сузить исключение
             return Response(status=status.HTTP_404_NOT_FOUND)
         else:
             return Response(status=status.HTTP_200_OK)
