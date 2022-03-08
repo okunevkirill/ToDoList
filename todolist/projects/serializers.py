@@ -30,7 +30,3 @@ class ToDoModelSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ToDo
         fields = '__all__'
-
-    def create(self, validated_data):
-        validated_data['author'] = self.context.get('user')
-        return super().create(validated_data)
