@@ -1,3 +1,4 @@
+from rest_framework.exceptions import APIException
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import status
@@ -26,7 +27,7 @@ class ToDoViewSet(ModelViewSet):
             todo = self.get_object()
             todo.is_active = False
             todo.save()
-        except Exception:  # ToDo сузить исключение
+        except (APIException, AttributeError):
             return Response(status=status.HTTP_404_NOT_FOUND)
         else:
             return Response(status=status.HTTP_200_OK)
