@@ -26,6 +26,7 @@ class ProjectModelSerializer(serializers.HyperlinkedModelSerializer):
 
 class ToDoModelSerializer(serializers.HyperlinkedModelSerializer):
     author = CustomUserModelSerializer(read_only=True)
+    is_active = serializers.BooleanField(read_only=True)
 
     class Meta:
         model = ToDo
