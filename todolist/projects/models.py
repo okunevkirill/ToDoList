@@ -20,7 +20,7 @@ class Project(models.Model):
 class ToDo(models.Model):
     """Model for project notes"""
     project = models.ForeignKey(Project, on_delete=models.CASCADE, verbose_name='ПРОЕКТ')
-    text = models.TextField(max_length=512, blank=True, verbose_name='ТЕКСТ ЗАМЕТКИ')
+    text = models.TextField(blank=True, verbose_name='ТЕКСТ ЗАМЕТКИ')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='СОЗДАНО')
     updated_at = models.DateTimeField(auto_now=True, verbose_name='ОБНОВЛЕНО')
     author = models.ForeignKey(
