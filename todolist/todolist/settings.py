@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     # ------------------------------
     # External libraries
     'rest_framework',
+    'corsheaders',  # Cross-Origin Resource Sharing
     # ------------------------------
     # Custom applications
     'users.apps.UsersConfig'
@@ -43,6 +44,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',  # Cross-Origin Resource Sharing
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -123,3 +125,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # User model path for authentication
 AUTH_USER_MODEL = 'users.CustomUser'
+
+# Cross-Origin Resource Sharing
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+]
