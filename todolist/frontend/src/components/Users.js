@@ -1,65 +1,101 @@
-/**
- * Модуль работы с API для пользователя
- */
-
 import React from 'react'
-import './apiTodolist.css'
+// ----------------------------------------------------------------------------
 
-/**
- * Функция получения html кода для переданного пользователя
- * @param user
- * @returns {JSX.Element}
- * @constructor
- */
-const UserItem = ({user}) => {
+const UserItem = ({item}) => {
     return (
         <tr>
-            <td>
-                {user.username}
+            <td scope={"row"}>
+                {item.username}
             </td>
             <td>
-                {user.first_name}
+                {item.firstName}
             </td>
             <td>
-                {user.last_name}
+                {item.lastName}
             </td>
             <td>
-                {user.email}
+                {item.email}
             </td>
         </tr>
     )
 }
 
-/**
- * Функция получения html кода для списка пользователей
- * @param users - список объекта типа пользователь
- * @returns {JSX.Element}
- * @constructor
- */
-const UserList = ({users}) => {
-    return (
-        <table>
-            <thead>
-            <tr>
-                <th>
-                    USERNAME
-                </th>
-                <th>
-                    FIRST NAME
-                </th>
-                <th>
-                    LAST NAME
-                </th>
-                <th>
-                    EMAIL
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            {users.map((user, index) => <UserItem user={user} key={index}/>)}
-            </tbody>
-        </table>
-    )
-}
 
+// const UserList = ({items}) => {
+//     return (
+//         <div className={"container"}>
+//             <table className={"table table-bordered table-hover"}>
+//                 <thead className={"table-light"}>
+//                 <tr>
+//                     <th scope={"col"}>
+//                         Username
+//                     </th>
+//                     <th scope={"col"}>
+//                         First name
+//                     </th>
+//                     <th scope={"col"}>
+//                         Last name
+//                     </th>
+//                     <th scope={"col"}>
+//                         Email
+//                     </th>
+//                 </tr>
+//                 </thead>
+//                 <tbody>
+//                 {items.map((item, index) => <UserItem item={item} key={index}/>)}
+//                 </tbody>
+//             </table>
+//         </div>
+//     )
+// }
+
+
+class UserList extends React.Component {
+    state = {
+        isLoaded: false,
+        users: []
+    }
+
+    componentDidMount() {
+        fetch('http://127.0.0.1:8000/users/')
+            .then(response => response.json())
+            .then(
+                (res) => {
+                    this.setState({
+                        isLoaded:true,
+                        users: res.results
+                    });
+                }
+            ).catch(error => console.log(error))
+    }
+
+    render() {
+        return (
+            <div className={"container"}>
+            <table className={"table table-bordered table-hover"}>
+                <thead className={"table-light"}>
+                <tr>
+                    <th scope={"col"}>
+                        Username
+                    </th>
+                    <th scope={"col"}>
+                        First name
+                    </th>
+                    <th scope={"col"}>
+                        Last name
+                    </th>
+                    <th scope={"col"}>
+                        Email
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {this.state.users.map((item, index) => <UserItem item={item} key={index}/>)}
+                </tbody>
+            </table>
+        </div>
+        )
+    }
+}
+// ----------------------------------------------------------------------------
 export default UserList;
