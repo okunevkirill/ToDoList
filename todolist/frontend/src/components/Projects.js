@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Link, useLocation, useParams} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 // ----------------------------------------------------------------------------
 
 /**
@@ -78,17 +78,18 @@ class ProjectList extends React.Component {
 const ProjectDetail = () => {
     let {id} = useParams();
     const [state, setState] = useState({
-        "id": 32,
+        "id": null,
         "users": [],
         "name": "",
         "href": ""
     });
 
+
     useEffect(() => {
         fetch(`http://127.0.0.1:8000/projects/${id}`)
             .then(response => response.json())
             .then((res) => setState(res)).catch(error => console.log(error))
-    }, [])
+    }, [id])
 
     return (
         <div className={"container"}>

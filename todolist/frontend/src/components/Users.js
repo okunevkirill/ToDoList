@@ -21,35 +21,6 @@ const UserItem = ({item}) => {
 }
 
 
-// const UserList = ({items}) => {
-//     return (
-//         <div className={"container"}>
-//             <table className={"table table-bordered table-hover"}>
-//                 <thead className={"table-light"}>
-//                 <tr>
-//                     <th scope={"col"}>
-//                         Username
-//                     </th>
-//                     <th scope={"col"}>
-//                         First name
-//                     </th>
-//                     <th scope={"col"}>
-//                         Last name
-//                     </th>
-//                     <th scope={"col"}>
-//                         Email
-//                     </th>
-//                 </tr>
-//                 </thead>
-//                 <tbody>
-//                 {items.map((item, index) => <UserItem item={item} key={index}/>)}
-//                 </tbody>
-//             </table>
-//         </div>
-//     )
-// }
-
-
 class UserList extends React.Component {
     state = {
         isLoaded: false,
@@ -62,7 +33,7 @@ class UserList extends React.Component {
             .then(
                 (res) => {
                     this.setState({
-                        isLoaded:true,
+                        isLoaded: true,
                         users: res.results
                     });
                 }
@@ -70,32 +41,34 @@ class UserList extends React.Component {
     }
 
     render() {
+        const items = this.state.users;
         return (
             <div className={"container"}>
-            <table className={"table table-bordered table-hover"}>
-                <thead className={"table-light"}>
-                <tr>
-                    <th scope={"col"}>
-                        Username
-                    </th>
-                    <th scope={"col"}>
-                        First name
-                    </th>
-                    <th scope={"col"}>
-                        Last name
-                    </th>
-                    <th scope={"col"}>
-                        Email
-                    </th>
-                </tr>
-                </thead>
-                <tbody>
-                {this.state.users.map((item, index) => <UserItem item={item} key={index}/>)}
-                </tbody>
-            </table>
-        </div>
+                <table className={"table table-bordered table-hover"}>
+                    <thead className={"table-light"}>
+                    <tr>
+                        <th scope={"col"}>
+                            Username
+                        </th>
+                        <th scope={"col"}>
+                            First name
+                        </th>
+                        <th scope={"col"}>
+                            Last name
+                        </th>
+                        <th scope={"col"}>
+                            Email
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {items.map((item, index) => <UserItem item={item} key={index}/>)}
+                    </tbody>
+                </table>
+            </div>
         )
     }
 }
+
 // ----------------------------------------------------------------------------
 export default UserList;
