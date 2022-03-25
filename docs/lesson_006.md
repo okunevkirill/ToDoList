@@ -38,6 +38,9 @@
 
 > Запрос token привёл в файле `todolist/http_client/rest-api-get-token.http`.
 
+> Для проверки авторизации через токен в БД использовал `todolist/http_client/rest-api-token-auth.http`
+> Необходимо запускать с окружением `TokenDB` (предварительно обновив для своего сеанса).
+
 - [x] `(По желанию)` Добавить в проект авторизацию по JWT токену (с использованием библиотек).
 
 > Запрос token привёл в файле `todolist/http_client/rest-api-get-jwt.http`.
