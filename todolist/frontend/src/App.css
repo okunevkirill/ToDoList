@@ -40,3 +40,7 @@
 .active {
   background: #ede9e9;
 }
+
+button {
+  min-width: 200px;
+}

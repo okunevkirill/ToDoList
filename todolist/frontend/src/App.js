@@ -22,6 +22,7 @@ class App extends React.Component {
             projects: [],
             todos: [],
             users: [],
+            todoUsername: ''
         }
     }
 
@@ -70,7 +71,7 @@ class App extends React.Component {
             ).catch(error => console.log(error));
     }
 
-    setToken(token='') {
+    setToken(token = '') {
         const cookies = new Cookies()
         cookies.set('todoToken', token)
         this.setState({'todoToken': token}, () => this.loadData())
@@ -78,6 +79,7 @@ class App extends React.Component {
 
     logout() {
         this.setToken('');
+        localStorage.setItem('todoUsername', '');
         window.location.href = '/login';
     }
 
@@ -96,18 +98,19 @@ class App extends React.Component {
             })
             .then(() => window.location.href = '/')
             .catch(error => console.log(error))
+
+        localStorage.setItem('todoUsername', username);
     }
 
     getClientToken() {
         const cookies = new Cookies()
         const token = cookies.get('todoToken')
-        console.log("todoToken", token);
         this.setState({'todoToken': token}, () => this.loadData())
     }
 
     componentDidMount() {
         this.getClientToken();
-
+        this.setState({'todoUsername': localStorage.getItem('todoUsername')})
     }
 
     render() {
@@ -120,7 +123,7 @@ class App extends React.Component {
                             {this.isAuthenticated() ?
                                 <button type="button" className={"btn btn-outline-danger"}
                                         onClick={() => this.logout()}>
-                                    Logout
+                                    {this.state.todoUsername} Logout
                                 </button> :
                                 <button type="button" className={"btn btn-outline-success"} onClick={() => {
                                     window.location.href = '/login'
