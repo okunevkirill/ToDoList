@@ -3,7 +3,7 @@ from django.test import TestCase
 from rest_framework import status, test as rft
 from mixer.backend.django import mixer
 
-from projects.models import ToDo
+from projects.models import ToDo, Project
 from projects.views import ToDoViewSet, ProjectViewSet
 from users.views import CustomUserViewSet
 
@@ -82,7 +82,7 @@ class TestUserViewSet(TestCase):
 class TestProjectViewSet(TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.BASE_URL = '/project/'  # When working with APIRequestFactory, the path is not important
+        cls.BASE_URL = '/projects/'  # When working with APIRequestFactory, the path is not important
         cls.data_user = dict(username='user', email='user@mail.com', password='user123456')
         cls.data_admin = dict(username='admin', email='admin@mail.com', password='admin123')
 
@@ -112,6 +112,16 @@ class TestProjectViewSet(TestCase):
         view = CustomUserViewSet.as_view({'get': 'list'})
         response = view(request)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_post_admin(self):
+        data = {
+            'name': 'project_1',
+            'href': 'https://github.com/',
+            'users': [self.admin, self.user]
+        }
+        self.client.login(username=self.data_admin.get('username'), password=self.data_admin.get('password'))
+        response = self.client.post(f'{self.BASE_URL}', data=data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     @classmethod
     def tearDownClass(cls):
@@ -172,6 +182,26 @@ class TestTodoViewSet(rft.APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.todo.refresh_from_db()
         self.assertEqual(self.todo.text, data.get('text'))
+
+    def test_post_auth(self):
+        project = mixer.blend(Project)
+        data = {
+            'text': 'Some text 0',
+            'project': project.pk
+        }
+        self.client.login(username=self.data_user.get('username'), password=self.data_user.get('password'))
+        response = self.client.post(f'{self.BASE_URL}', data=data)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+    def test_post_admin(self):
+        project = mixer.blend(Project)
+        data = {
+            'text': 'Some text 1',
+            'project': project.pk
+        }
+        self.client.login(username=self.data_admin.get('username'), password=self.data_admin.get('password'))
+        response = self.client.post(f'{self.BASE_URL}', data=data)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     @classmethod
     def tearDownClass(cls):
