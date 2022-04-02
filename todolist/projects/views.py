@@ -6,12 +6,12 @@ from rest_framework import status
 from .filters import ProjectFilter, ToDoFilter
 from .models import Project, ToDo
 from .pagination import ProjectLimitOffsetPagination, ToDoLimitOffsetPagination
-from .serializers import ProjectModelSerializer, ToDoSerializer, ToDoViewingSerializer
+from .serializers import ProjectSerializer, ToDoSerializer, ToDoViewingSerializer
 
 
 class ProjectViewSet(ModelViewSet):
     queryset = Project.objects.all()
-    serializer_class = ProjectModelSerializer
+    serializer_class = ProjectSerializer
     pagination_class = ProjectLimitOffsetPagination
     filterset_class = ProjectFilter
 
