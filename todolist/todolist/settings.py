@@ -36,7 +36,7 @@ INSTALLED_APPS = [
     # External libraries
     'corsheaders',  # Cross-Origin Resource Sharing
     'rest_framework',
-
+    'django_filters',
     # ------------------------------
     # Custom applications
     'users.apps.UsersConfig',
@@ -53,6 +53,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+if not DEBUG:
+    MIDDLEWARE += [
+        'middleware.Process500',
+    ]
 
 ROOT_URLCONF = 'todolist.urls'
 
@@ -145,6 +150,13 @@ REST_FRAMEWORK = {
         'djangorestframework_camel_case.parser.CamelCaseMultiPartParser',
         'djangorestframework_camel_case.parser.CamelCaseJSONParser',
     ),
+
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 100,
+
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ],
 }
 
 if DEBUG:
