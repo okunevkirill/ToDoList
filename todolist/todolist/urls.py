@@ -10,17 +10,9 @@ from rest_framework.authtoken import views
 from projects.views import ProjectViewSet, ToDoViewSet
 from users.views import CustomUserViewSet
 
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.schemas import get_schema_view
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
-)
-
-schema_view = get_schema_view(
-    title='ToDoList',
-    version='0.0.9',
-    permission_classes=[IsAuthenticated],
 )
 
 router = DefaultRouter()
@@ -38,5 +30,4 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     # ------------------------------
     path('', include(router.urls)),
-    path('schema/', schema_view)
 ]
