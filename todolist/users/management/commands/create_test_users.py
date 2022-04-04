@@ -22,4 +22,4 @@ class Command(BaseCommand):
                 email=f'test{index}@gmail.com',
                 password=f'test{index}123'
             )
-        self.stdout.write(self.style.SUCCESS(f'[*] Script {self.__module__} ending'))
+        self.stdout.write(self.style.NOTICE(f'[*] Script {self.__module__} ending'))
