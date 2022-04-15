@@ -6,7 +6,7 @@ class Command(BaseCommand):
     help = 'Creates multiple users in the database for testing ([!] This removes previous users.)'
 
     def add_arguments(self, parser):
-        parser.add_argument('count', nargs='?', default=3, type=int)
+        parser.add_argument('count', nargs='?', default=10, type=int)
 
     def handle(self, *args, **options):
         model = get_user_model()

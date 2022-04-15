@@ -161,6 +161,8 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:8000',
     'http://ok-kir.ru:80',
     'http://ok-kir.ru:8000',
+    'http://178.21.8.112:8000',
+    'http://178.21.8.112:80',
 ]
 
 # rest framework response
