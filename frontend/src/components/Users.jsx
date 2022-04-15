@@ -8,9 +8,6 @@ const UserItem = ({item}) => {
                 {item.username}
             </td>
             <td>
-                {item.username}
-            </td>
-            <td>
                 {item.firstName}
             </td>
             <td>
