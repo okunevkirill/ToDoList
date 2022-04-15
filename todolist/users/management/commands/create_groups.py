@@ -4,17 +4,17 @@ from django.contrib.auth.models import Group, Permission
 GROUPS = {
     "Administrators": {
         "project": ["add", "change", "delete", "view"],
-        "to do": ["add", "change", "delete", "view"],
+        "note": ["add", "change", "delete", "view"],
         "user": ["add", "change", "delete", "view"],
     },
     "Developers": {
         "project": ["view"],
-        "to do": ["add", "change", "delete", "view"],
+        "note": ["add", "change", "delete", "view"],
         "user": ["view"],
     },
     "Manager": {
         "project": ["add", "change", "delete", "view"],
-        "to do": ["add", "change", "delete", "view"],
+        "note": ["add", "change", "delete", "view"],
         "user": ["view"],
     },
 }
