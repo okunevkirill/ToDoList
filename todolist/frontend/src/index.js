@@ -1,15 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import $ from 'jquery';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import ToDoListApp from "./ToDoListApp";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ToDoListApp/>
   </React.StrictMode>,
   document.getElementById('root')
 );
